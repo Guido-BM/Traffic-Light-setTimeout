@@ -96,7 +96,7 @@ const TrafficLight = () => {
             setActiveColor(colors.red);
           }}
         >
-          {isRunning ? "Stop" : "Start"}
+          {isRunning ? "Pedestrian press" : "Restart Traffic"}
         </button>
       </div>
     </>
