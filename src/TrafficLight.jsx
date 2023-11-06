@@ -8,49 +8,47 @@ const colors = {
 };
 const TrafficLight = () => {
   const [activeColor, setActiveColor] = useState(colors.red);
+  const [isRunning, setIsRunning] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      switch (activeColor) {
-        case colors.red:
-          setActiveColor(colors.green);
-          break;
-        case colors.yellow:
-          setActiveColor(colors.red);
-          break;
-        case colors.green:
-          setActiveColor(colors.yellow);
-          break;
-        default:
-          setActiveColor(colors.red);
-      }
+    const nextColor = {
+      [colors.red]: colors.green,
+      [colors.yellow]: colors.red,
+      [colors.green]: colors.yellow,
+    };
+
+    if (!isRunning) return;
+
+    const timer = setTimeout(() => {
+      setActiveColor((prevColor) => nextColor[prevColor] || colors.red);
     }, 1000);
-  }, [activeColor]);
+
+    return () => clearTimeout(timer);
+  }, [isRunning, activeColor]);
 
   return (
     <>
       <div
         style={{
-          background: "lightgray",
           display: "flex",
-          justifyContent: "center",
+          flexDirection: "column",
           alignItems: "center",
+          justifyContent: "center",
           height: "100vh",
         }}
       >
         <div
           style={{
-            flex: "2 6 0",
-            flexDirection: "column",
             display: "flex",
-            justifyContent: "center",
+            flexDirection: "column",
             alignItems: "center",
+            marginBottom: "20px",
           }}
         >
           <div
             style={{
-              width: activeColor === colors.red ? "220px" : "200px", 
-              height: activeColor === colors.red ? "220px" : "200px", 
+              width: activeColor === colors.red ? "220px" : "200px",
+              height: activeColor === colors.red ? "220px" : "200px",
 
               borderRadius: "50%",
               margin: "10px",
@@ -63,8 +61,8 @@ const TrafficLight = () => {
           ></div>
           <div
             style={{
-              width: activeColor === colors.yellow ? "220px" : "200px", 
-              height: activeColor === colors.yellow ? "220px" : "200px", 
+              width: activeColor === colors.yellow ? "220px" : "200px",
+              height: activeColor === colors.yellow ? "220px" : "200px",
 
               borderRadius: "50%",
               margin: "10px",
@@ -78,8 +76,8 @@ const TrafficLight = () => {
           ></div>
           <div
             style={{
-              width: activeColor === colors.green ? "220px" : "200px", 
-              height: activeColor === colors.green ? "220px" : "200px", 
+              width: activeColor === colors.green ? "220px" : "200px",
+              height: activeColor === colors.green ? "220px" : "200px",
 
               borderRadius: "50%",
               margin: "10px",
@@ -92,6 +90,14 @@ const TrafficLight = () => {
             }}
           ></div>
         </div>
+        <button
+          onClick={() => {
+            setIsRunning(!isRunning);
+            setActiveColor(colors.red);
+          }}
+        >
+          {isRunning ? "Stop" : "Start"}
+        </button>
       </div>
     </>
   );
