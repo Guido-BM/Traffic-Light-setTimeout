@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 
 const colors = {
   red: "red",
-  yellow: "yellow",
-  green: "green",
+  yellow: "rgba(255, 167, 0, 1)",
+  green: "rgba(0, 255, 0, 1)",
 };
 const TrafficLight = () => {
   const [activeColor, setActiveColor] = useState(colors.red);
@@ -43,6 +43,8 @@ const TrafficLight = () => {
             flexDirection: "column",
             alignItems: "center",
             marginBottom: "20px",
+            backgroundColor: "#CCCC00",
+            borderRadius: "15px",
           }}
         >
           <div
@@ -52,11 +54,8 @@ const TrafficLight = () => {
 
               borderRadius: "50%",
               margin: "10px",
-              background:
-                activeColor === colors.red
-                  ? colors.red
-                  : "rgba(255, 0, 0, 0.3)",
-              boxShadow: activeColor === colors.red ? "0 0 30px red" : "none",
+              background: activeColor === colors.red ? colors.red : 'rgba(180, 0, 0, 1)',
+    boxShadow: activeColor === colors.red ? '0 0 30px red' : 'none',
             }}
           ></div>
           <div
@@ -66,10 +65,7 @@ const TrafficLight = () => {
 
               borderRadius: "50%",
               margin: "10px",
-              background:
-                activeColor === colors.yellow
-                  ? colors.yellow
-                  : "rgba(255, 255, 0, 0.3)",
+              background: activeColor === colors.yellow ? colors.yellow : 'rgba(208, 124, 0, 1)',
               boxShadow:
                 activeColor === colors.yellow ? "0 0 30px yellow" : "none",
             }}
@@ -81,16 +77,13 @@ const TrafficLight = () => {
 
               borderRadius: "50%",
               margin: "10px",
-              background:
-                activeColor === colors.green
-                  ? colors.green
-                  : "rgba(0, 128, 0, 0.3)",
+              background: activeColor === colors.green ? colors.green : 'rgba(0, 150, 0, 1)',
               boxShadow:
                 activeColor === colors.green ? "0 0 30px green" : "none",
             }}
           ></div>
-        </div>
-        <button
+
+                  <button
           onClick={() => {
             setIsRunning(!isRunning);
             setActiveColor(colors.red);
@@ -98,6 +91,8 @@ const TrafficLight = () => {
         >
           {isRunning ? "Pedestrian press" : "Restart Traffic"}
         </button>
+        </div>
+
       </div>
     </>
   );
